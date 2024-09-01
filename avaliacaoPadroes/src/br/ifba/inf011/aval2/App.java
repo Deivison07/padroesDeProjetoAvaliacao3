@@ -38,16 +38,21 @@ public class App {
 		Credencial user01 = new Credencial("user01");
 		
 		Entrada raiz = new Pasta("/", LocalDate.now());
+
+		EntradaOperavel a1 = new Arquivo("Arquivo teste", LocalDate.now(), "ARQUIVO DE TESTE PARA A AVALIAÇÃO", Codificacao.TEXTO);
 		
 		//criando arquivo
 		ArquivoHistorico s1 = new ArquivoHistorico("S1", LocalDate.now(), "DICIPLINA PADROES DE PROJETO", Codificacao.BINARIO);
 		
 		raiz.addFilho(s1);
+		raiz.addFilho(a1);
 		
 		ArquivoSistemaHistorico historico = new ArquivoSistemaHistorico(s1);
-		
-		System.out.println(s1.dump());
-		
+
+		// Retornando binario no dump
+		System.out.println(s1.dump()+ "aq");
+
+		// Lendo o conteúdo interno
 		System.out.println(s1.ler(user01));
 		
 		historico.save();
@@ -68,6 +73,32 @@ public class App {
 		System.out.println(s1.ler(user01));
 		
 		s1.excluir();
+
+		a1.escrever(user01, "NOVO TESTE");
+
+		//MUDANDO PARA ESTADO DE APENAS LEITURA
+		a1.somenteLeitura();
+		System.out.println(a1.getState().desc());
+
+		a1.ler(user01);
+
+		// Ao BLOQUEAR a1 tanto ler, quanto escrever resultam em IllegalAccessException
+		a1.bloquear();
+		System.out.println(a1.getState().desc());
+
+		a1.liberar();
+		System.out.println(a1.getState().desc());
+
+
+		a1.escrever(user01, "MAIS TESTES");
+
+		//tanto ler, quanto escrever resultam em IllegalAccessException, só permite Restaurar
+		a1.excluir();
+		System.out.println(a1.getState().desc());
+
+		a1.bloquear();
+
+		a1.ler(user01);
 		
 		System.out.println(raiz.getNome() + ": " + raiz.getTamanho() + "K");
 	}
