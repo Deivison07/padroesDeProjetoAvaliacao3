@@ -88,7 +88,7 @@ public class App {
 		a1.somenteLeitura();
 		System.out.println(a1.desc());
 
-		a1.ler(user01);
+		System.out.println(a1.ler(user01));
 
 		a1.bloquear();
 		System.out.println(a1.desc());
