@@ -58,10 +58,10 @@ public class App {
 		
 		ArquivoSistemaHistorico historico = new ArquivoSistemaHistorico(s1);
 
-		// Retornando binario no dump
-		System.out.println(s1.dump()+ "aq");
+		// Retornando o dump
+		System.out.println(s1.dump());
 
-		// Lendo o conteúdo interno
+		// Lendo o conteúdo
 		System.out.println(s1.ler(user01));
 		
 		historico.save();
@@ -86,27 +86,31 @@ public class App {
 		a1.escrever(user01, "NOVO TESTE");
 
 		a1.somenteLeitura();
-		System.out.println(a1.getState().desc());
+		System.out.println(a1.desc());
 
 		a1.ler(user01);
 
 		a1.bloquear();
-		System.out.println(a1.getState().desc());
+		System.out.println(a1.desc());
 
 		a1.liberar();
-		System.out.println(a1.getState().desc());
+		System.out.println(a1.desc());
 
 
 		a1.escrever(user01, "MAIS TESTES");
 
 		//tanto ler, quanto escrever resultam em IllegalAccessException, só permite Restaurar
 		a1.excluir();
-		System.out.println(a1.getState().desc());
+		System.out.println(a1.desc());
 
 		a1.bloquear();
-
-		a1.ler(user01);
 		
+		try {
+			System.out.println("A1: " + a1.ler(user01));
+		} catch (IllegalAccessException e) {
+			System.out.println("NÃO FOI POSSIVEL LER DE A1");
+		}
+	
 		System.out.println(raiz.getNome() + ": " + raiz.getTamanho() + "K");
 	}
 	
@@ -156,7 +160,6 @@ public class App {
 		
 		System.out.println(raiz.getNome() + ": " + raiz.getTamanho() + "K");
 	}
-	
 	
 	public static void main(String[] args) throws IllegalAccessException {
 		App app = new App();
