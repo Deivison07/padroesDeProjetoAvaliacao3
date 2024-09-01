@@ -18,6 +18,7 @@ public class App {
 		 * crio a credencial, a pasta, o arquivoHistorico
 		 * adiciono o arquivo historico dentro da pasta
 		 * crio o arquivo que vai manter os checkpoints
+		 * crio o arquivo comum
 		 * imprimo o dump
 		 * leio
 		 * salvo
@@ -32,6 +33,14 @@ public class App {
 		 * leio
 		 * mudo o estado para excluido
 		 * imprimo o tamanho da pasta
+		 * escrevo no arquivo comum
+		 * mudo para o estado de * somente leitura *
+		 * leio
+		 * bloqueio o arquivo
+		 * libero o arquivo
+		 * escrevo no arquivo
+		 * excluo o arquivo
+		 * tento bloquear resultando em erro.
 		 * */
 		
 		//criando usuario
@@ -76,13 +85,11 @@ public class App {
 
 		a1.escrever(user01, "NOVO TESTE");
 
-		//MUDANDO PARA ESTADO DE APENAS LEITURA
 		a1.somenteLeitura();
 		System.out.println(a1.getState().desc());
 
 		a1.ler(user01);
 
-		// Ao BLOQUEAR a1 tanto ler, quanto escrever resultam em IllegalAccessException
 		a1.bloquear();
 		System.out.println(a1.getState().desc());
 
